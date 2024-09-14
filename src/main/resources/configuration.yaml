@@ -2,5 +2,6 @@ remote-swagger:
   endpoints:
     player:
       create-player-endpoint: "http://3.68.165.45/player/create/%s"
+      delete-player-endpoint: "http://3.68.165.45/player/delete/%s"
       get-player-by-id-endpoint: "http://3.68.165.45/player/get"
       get-all-players-endpoint: "http://3.68.165.45/player/get/all"

@@ -62,4 +62,18 @@ public class BaseApiClient {
                 .then()
                 .extract().response();
     }
+
+    public Response deleteRequest(String url, Object body) {
+        return given()
+                .filters(new HeadersFilter(), new AllureRestAssured())
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .log().method()
+                .log().body(true)
+                .log().headers()
+                .delete(url)
+                .then()
+                .extract().response();
+    }
 }

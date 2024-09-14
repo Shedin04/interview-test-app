@@ -16,8 +16,8 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 @Epic("Player")
-@Feature("Create/Get player")
-public class CreateAndGetPlayerTest extends BaseTest {
+@Feature("Create player")
+public class CreatePlayerTest extends BaseTest {
 
     private PlayerClient playerClient;
 
