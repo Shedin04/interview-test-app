@@ -2,7 +2,7 @@ package com.interview.player;
 
 import com.interview.base.BaseTest;
 import com.interview.client.PlayerClient;
-import com.interview.dto.PlayerDto;
+import com.interview.dto.DeletePlayerRequestDto;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
@@ -30,7 +30,7 @@ public class DeletePlayerTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     public void deletePlayerWithInvalidEditorTest() {
         String editor = RandomStringUtils.randomAlphabetic(15);
-        Response response = playerClient.sendDeleteUserRequest(editor, PlayerDto.builder().id(0L).build());
+        Response response = playerClient.sendDeleteUserRequest(editor, DeletePlayerRequestDto.builder().playerId(0L).build());
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(response.getStatusCode(), HttpStatus.SC_FORBIDDEN, "Unexpected status code");
         softAssert.assertEquals(response.getBody().asString(), StringUtils.EMPTY, "Body should be empty");

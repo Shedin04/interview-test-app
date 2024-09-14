@@ -3,7 +3,10 @@ package com.interview.player;
 import com.interview.base.BaseTest;
 import com.interview.client.PlayerClient;
 import com.interview.dto.ErrorResponseDto;
+import com.interview.dto.GetPlayerRequestDto;
 import com.interview.dto.PlayerDto;
+import com.interview.enums.UserType;
+import com.interview.helper.TestDataHelper;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
@@ -44,7 +47,7 @@ public class GetPlayerByIdTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Issue("I'd replace 200 status code with 404 in case when invalid id provided")
     public void getPlayerWithInvalidIdTest(Long id) {
-        Response response = playerClient.sendPostGetSpecifiedPlayerRequest(PlayerDto.builder().id(id).build());
+        Response response = playerClient.sendPostGetSpecifiedPlayerRequest(GetPlayerRequestDto.builder().playerId(id).build());
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(response.getStatusCode(), HttpStatus.SC_NOT_FOUND, "Unexpected status code");
         softAssert.assertEquals(response.getBody().asString(), StringUtils.EMPTY, "Body should be empty");
@@ -54,7 +57,7 @@ public class GetPlayerByIdTest extends BaseTest {
     @Test(description = "Get specified player with wrong request method")
     @Severity(SeverityLevel.NORMAL)
     public void getPlayerWithWrongRequestMethodTest() {
-        Response response = playerClient.sendDeleteGetSpecifiedPlayerRequest(PlayerDto.builder().id(0L).build());
+        Response response = playerClient.sendDeleteGetSpecifiedPlayerRequest(GetPlayerRequestDto.builder().playerId(0L).build());
         assertEquals(response.getStatusCode(), HttpStatus.SC_METHOD_NOT_ALLOWED, "Unexpected status code");
         ErrorResponseDto errorResponseDto = response.as(ErrorResponseDto.class);
         SoftAssert softAssert = new SoftAssert();
@@ -64,5 +67,15 @@ public class GetPlayerByIdTest extends BaseTest {
         softAssert.assertEquals(errorResponseDto.getMessage(), StringUtils.EMPTY, "Message should be empty");
         softAssert.assertEquals(errorResponseDto.getPath(), response.path(PATH), "Path mismatch");
         softAssert.assertAll();
+    }
+
+    @Test(description = "Get valid player by id")
+    @Severity(SeverityLevel.NORMAL)
+    public void getValidPlayerByIdTest() {
+        PlayerDto playerToGet = TestDataHelper.createPlayerDtoByUserType(UserType.DEFAULT_ADMIN_USER);
+        Response response = playerClient.sendPostGetSpecifiedPlayerRequest(GetPlayerRequestDto.builder().playerId(playerToGet.getId()).build());
+        assertEquals(response.getStatusCode(), HttpStatus.SC_OK, "Unexpected status code");
+        PlayerDto receivedPlayer = response.as(PlayerDto.class);
+        assertEquals(receivedPlayer, playerToGet, "Incorrect player was returned");
     }
 }

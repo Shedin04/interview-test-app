@@ -1,6 +1,8 @@
 package com.interview.client;
 
 import com.interview.config.ConfigurationCollector;
+import com.interview.dto.DeletePlayerRequestDto;
+import com.interview.dto.GetPlayerRequestDto;
 import com.interview.dto.PlayerDto;
 import com.interview.utils.TestContext;
 import io.restassured.response.Response;
@@ -8,7 +10,13 @@ import io.restassured.response.Response;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.interview.constants.StringConstants.AGE;
+import static com.interview.constants.StringConstants.GENDER;
+import static com.interview.constants.StringConstants.LOGIN;
+import static com.interview.constants.StringConstants.PASSWORD;
 import static com.interview.constants.StringConstants.RESPONSE;
+import static com.interview.constants.StringConstants.ROLE;
+import static com.interview.constants.StringConstants.SCREEN_NAME;
 import static java.lang.String.format;
 
 public class PlayerClient extends BaseApiClient {
@@ -17,13 +25,6 @@ public class PlayerClient extends BaseApiClient {
     private static final String ENDPOINTS_PLAYER_DELETE_PLAYER_ENDPOINT = "endpoints.player.delete-player-endpoint";
     private static final String ENDPOINTS_PLAYER_SPECIFIED_PLAYER_ENDPOINT = "endpoints.player.get-specified-player-endpoint";
     private static final String ENDPOINTS_PLAYER_GET_ALL_PLAYERS_ENDPOINT = "endpoints.player.get-all-players-endpoint";
-
-    private static final String AGE = "age";
-    private static final String GENDER = "gender";
-    private static final String LOGIN = "login";
-    private static final String PASSWORD = "password";
-    private static final String ROLE = "role";
-    private static final String SCREEN_NAME = "screenName";
 
     public Response sendGetCreatePlayerRequest(String editor, PlayerDto playerDto) {
         Map<String, Object> params = new HashMap<>();
@@ -62,20 +63,20 @@ public class PlayerClient extends BaseApiClient {
         return response;
     }
 
-    public Response sendDeleteUserRequest(String editor, PlayerDto playerDto) {
-        Response response = deleteRequest(format(ConfigurationCollector.getProperty(ENDPOINTS_PLAYER_DELETE_PLAYER_ENDPOINT), editor), playerDto);
+    public Response sendDeleteUserRequest(String editor, DeletePlayerRequestDto deletePlayerRequestDto) {
+        Response response = deleteRequest(format(ConfigurationCollector.getProperty(ENDPOINTS_PLAYER_DELETE_PLAYER_ENDPOINT), editor), deletePlayerRequestDto);
         TestContext.saveSharedParameter(RESPONSE, response);
         return response;
     }
 
-    public Response sendPostGetSpecifiedPlayerRequest(PlayerDto playerDto) {
-        Response response = postRequest(ConfigurationCollector.getProperty(ENDPOINTS_PLAYER_SPECIFIED_PLAYER_ENDPOINT), playerDto);
+    public Response sendPostGetSpecifiedPlayerRequest(GetPlayerRequestDto getPlayerRequestDto) {
+        Response response = postRequest(ConfigurationCollector.getProperty(ENDPOINTS_PLAYER_SPECIFIED_PLAYER_ENDPOINT), getPlayerRequestDto);
         TestContext.saveSharedParameter(RESPONSE, response);
         return response;
     }
 
-    public Response sendDeleteGetSpecifiedPlayerRequest(PlayerDto playerDto) {
-        Response response = deleteRequest(ConfigurationCollector.getProperty(ENDPOINTS_PLAYER_SPECIFIED_PLAYER_ENDPOINT), playerDto);
+    public Response sendDeleteGetSpecifiedPlayerRequest(GetPlayerRequestDto getPlayerRequestDto) {
+        Response response = deleteRequest(ConfigurationCollector.getProperty(ENDPOINTS_PLAYER_SPECIFIED_PLAYER_ENDPOINT), getPlayerRequestDto);
         TestContext.saveSharedParameter(RESPONSE, response);
         return response;
     }
