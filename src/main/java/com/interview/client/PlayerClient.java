@@ -73,4 +73,10 @@ public class PlayerClient extends BaseApiClient {
         TestContext.saveSharedParameter(RESPONSE, response);
         return response;
     }
+
+    public Response sendDeleteGetSpecifiedPlayerRequest(PlayerDto playerDto) {
+        Response response = deleteRequest(ConfigurationCollector.getProperty(ENDPOINTS_PLAYER_SPECIFIED_PLAYER_ENDPOINT), playerDto);
+        TestContext.saveSharedParameter(RESPONSE, response);
+        return response;
+    }
 }

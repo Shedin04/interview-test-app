@@ -2,6 +2,7 @@ package com.interview.player;
 
 import com.interview.base.BaseTest;
 import com.interview.client.PlayerClient;
+import com.interview.dto.ErrorResponseDto;
 import com.interview.dto.PlayerDto;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -15,6 +16,10 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import static com.interview.constants.StringConstants.METHOD_NOT_ALLOWED_ERROR;
+import static com.interview.constants.StringConstants.PATH;
+import static org.testng.Assert.assertEquals;
 
 @Epic("Player")
 @Feature("Get player by id")
@@ -43,6 +48,21 @@ public class GetPlayerByIdTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(response.getStatusCode(), HttpStatus.SC_NOT_FOUND, "Unexpected status code");
         softAssert.assertEquals(response.getBody().asString(), StringUtils.EMPTY, "Body should be empty");
+        softAssert.assertAll();
+    }
+
+    @Test(description = "Get specified player with wrong request method")
+    @Severity(SeverityLevel.NORMAL)
+    public void getPlayerWithWrongRequestMethodTest() {
+        Response response = playerClient.sendDeleteGetSpecifiedPlayerRequest(PlayerDto.builder().id(0L).build());
+        assertEquals(response.getStatusCode(), HttpStatus.SC_METHOD_NOT_ALLOWED, "Unexpected status code");
+        ErrorResponseDto errorResponseDto = response.as(ErrorResponseDto.class);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertNotNull(errorResponseDto.getTimestamp(), "Timestamp should not be null");
+        softAssert.assertEquals(errorResponseDto.getStatus(), HttpStatus.SC_METHOD_NOT_ALLOWED, "Status code mismatch");
+        softAssert.assertEquals(errorResponseDto.getError(), METHOD_NOT_ALLOWED_ERROR, "Error message mismatch");
+        softAssert.assertEquals(errorResponseDto.getMessage(), StringUtils.EMPTY, "Message should be empty");
+        softAssert.assertEquals(errorResponseDto.getPath(), response.path(PATH), "Path mismatch");
         softAssert.assertAll();
     }
 }
