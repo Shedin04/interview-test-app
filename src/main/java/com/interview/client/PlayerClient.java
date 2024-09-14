@@ -15,6 +15,7 @@ public class PlayerClient extends BaseApiClient {
 
     private static final String ENDPOINTS_PLAYER_CREATE_PLAYER_ENDPOINT = "endpoints.player.create-player-endpoint";
     private static final String ENDPOINTS_PLAYER_DELETE_PLAYER_ENDPOINT = "endpoints.player.delete-player-endpoint";
+    private static final String ENDPOINTS_PLAYER_SPECIFIED_PLAYER_ENDPOINT = "endpoints.player.get-specified-player-endpoint";
     private static final String ENDPOINTS_PLAYER_GET_ALL_PLAYERS_ENDPOINT = "endpoints.player.get-all-players-endpoint";
 
     private static final String AGE = "age";
@@ -63,6 +64,12 @@ public class PlayerClient extends BaseApiClient {
 
     public Response sendDeleteUserRequest(String editor, PlayerDto playerDto) {
         Response response = deleteRequest(format(ConfigurationCollector.getProperty(ENDPOINTS_PLAYER_DELETE_PLAYER_ENDPOINT), editor), playerDto);
+        TestContext.saveSharedParameter(RESPONSE, response);
+        return response;
+    }
+
+    public Response sendPostGetSpecifiedPlayerRequest(PlayerDto playerDto) {
+        Response response = postRequest(ConfigurationCollector.getProperty(ENDPOINTS_PLAYER_SPECIFIED_PLAYER_ENDPOINT), playerDto);
         TestContext.saveSharedParameter(RESPONSE, response);
         return response;
     }
