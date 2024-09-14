@@ -8,6 +8,7 @@ import com.interview.dto.PlayerDto;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
+import io.qameta.allure.Issue;
 import io.qameta.allure.SeverityLevel;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.StringUtils;
@@ -51,6 +52,7 @@ public class GetAllPlayersTest extends BaseTest {
 
     @Test(description = "Valid getting all players")
     @Severity(SeverityLevel.NORMAL)
+    @Issue("Required screen name and gender are missed for some players")
     public void validGettingAllPlayersTest() {
         Response response = playerClient.sendGetAllPlayersRequest();
         assertEquals(response.getStatusCode(), HttpStatus.SC_OK, "Unexpected status code");
@@ -62,7 +64,9 @@ public class GetAllPlayersTest extends BaseTest {
             softAssert.assertNotNull(player.getId(), "Player ID should not be null");
             softAssert.assertTrue(player.getId() > 0, "Player ID should be positive");
             softAssert.assertNotNull(player.getScreenName(), "Screen name should not be null");
+            softAssert.assertFalse(player.getScreenName().isEmpty(), "Screen name should not be empty");
             softAssert.assertNotNull(player.getGender(), "Gender should not be null");
+            softAssert.assertFalse(player.getGender().isEmpty(), "Gender should not be empty");
             softAssert.assertNotNull(player.getAge(), "Age should not be null");
             softAssert.assertTrue(player.getAge() > 0, "Age should be more than 0");
         });
