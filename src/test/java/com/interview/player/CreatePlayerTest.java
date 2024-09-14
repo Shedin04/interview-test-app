@@ -30,7 +30,7 @@ public class CreatePlayerTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     public void createPlayerWithInvalidEditorTest() {
         String editor = RandomStringUtils.randomAlphabetic(15);
-        Response response = playerClient.sendGetCreatePlayerRequest(editor, TestDataHelper.createRandomPlayerDto());
+        Response response = playerClient.sendCreatePlayerGetRequest(editor, TestDataHelper.createRandomPlayerDto());
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(response.getStatusCode(), HttpStatus.SC_FORBIDDEN, "Unexpected status code");
         softAssert.assertEquals(response.getBody().asString(), StringUtils.EMPTY, "Body should be empty");

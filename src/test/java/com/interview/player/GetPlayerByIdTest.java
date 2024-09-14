@@ -47,7 +47,7 @@ public class GetPlayerByIdTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Issue("I'd replace 200 status code with 404 in case when invalid id provided")
     public void getPlayerWithInvalidIdTest(Long id) {
-        Response response = playerClient.sendPostGetSpecifiedPlayerRequest(GetPlayerRequestDto.builder().playerId(id).build());
+        Response response = playerClient.sendGetSpecifiedPlayerPostRequest(GetPlayerRequestDto.builder().playerId(id).build());
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(response.getStatusCode(), HttpStatus.SC_NOT_FOUND, "Unexpected status code");
         softAssert.assertEquals(response.getBody().asString(), StringUtils.EMPTY, "Body should be empty");
@@ -57,7 +57,7 @@ public class GetPlayerByIdTest extends BaseTest {
     @Test(description = "Get specified player with wrong request method")
     @Severity(SeverityLevel.NORMAL)
     public void getPlayerWithWrongRequestMethodTest() {
-        Response response = playerClient.sendDeleteGetSpecifiedPlayerRequest(GetPlayerRequestDto.builder().playerId(0L).build());
+        Response response = playerClient.sendGetSpecifiedPlayerDeleteRequest(GetPlayerRequestDto.builder().playerId(0L).build());
         assertEquals(response.getStatusCode(), HttpStatus.SC_METHOD_NOT_ALLOWED, "Unexpected status code");
         ErrorResponseDto errorResponseDto = response.as(ErrorResponseDto.class);
         SoftAssert softAssert = new SoftAssert();
@@ -73,7 +73,7 @@ public class GetPlayerByIdTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     public void getValidPlayerByIdTest() {
         PlayerDto playerToGet = TestDataHelper.createPlayerDtoByUserType(UserType.DEFAULT_ADMIN_USER);
-        Response response = playerClient.sendPostGetSpecifiedPlayerRequest(GetPlayerRequestDto.builder().playerId(playerToGet.getId()).build());
+        Response response = playerClient.sendGetSpecifiedPlayerPostRequest(GetPlayerRequestDto.builder().playerId(playerToGet.getId()).build());
         assertEquals(response.getStatusCode(), HttpStatus.SC_OK, "Unexpected status code");
         PlayerDto receivedPlayer = response.as(PlayerDto.class);
         assertEquals(receivedPlayer, playerToGet, "Incorrect player was returned");

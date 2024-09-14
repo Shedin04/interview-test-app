@@ -26,7 +26,7 @@ public class PlayerClient extends BaseApiClient {
     private static final String ENDPOINTS_PLAYER_SPECIFIED_PLAYER_ENDPOINT = "endpoints.player.get-specified-player-endpoint";
     private static final String ENDPOINTS_PLAYER_GET_ALL_PLAYERS_ENDPOINT = "endpoints.player.get-all-players-endpoint";
 
-    public Response sendGetCreatePlayerRequest(String editor, PlayerDto playerDto) {
+    public Response sendCreatePlayerGetRequest(String editor, PlayerDto playerDto) {
         Map<String, Object> params = new HashMap<>();
         if (playerDto.getAge() != null) {
             params.put(AGE, playerDto.getAge());
@@ -57,7 +57,7 @@ public class PlayerClient extends BaseApiClient {
         return response;
     }
 
-    public Response sendPostAllPlayersRequest() {
+    public Response sendGetAllPlayersPostRequest() {
         Response response = postRequest(ConfigurationCollector.getProperty(ENDPOINTS_PLAYER_GET_ALL_PLAYERS_ENDPOINT));
         TestContext.saveSharedParameter(RESPONSE, response);
         return response;
@@ -69,13 +69,13 @@ public class PlayerClient extends BaseApiClient {
         return response;
     }
 
-    public Response sendPostGetSpecifiedPlayerRequest(GetPlayerRequestDto getPlayerRequestDto) {
+    public Response sendGetSpecifiedPlayerPostRequest(GetPlayerRequestDto getPlayerRequestDto) {
         Response response = postRequest(ConfigurationCollector.getProperty(ENDPOINTS_PLAYER_SPECIFIED_PLAYER_ENDPOINT), getPlayerRequestDto);
         TestContext.saveSharedParameter(RESPONSE, response);
         return response;
     }
 
-    public Response sendDeleteGetSpecifiedPlayerRequest(GetPlayerRequestDto getPlayerRequestDto) {
+    public Response sendGetSpecifiedPlayerDeleteRequest(GetPlayerRequestDto getPlayerRequestDto) {
         Response response = deleteRequest(ConfigurationCollector.getProperty(ENDPOINTS_PLAYER_SPECIFIED_PLAYER_ENDPOINT), getPlayerRequestDto);
         TestContext.saveSharedParameter(RESPONSE, response);
         return response;

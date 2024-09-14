@@ -38,7 +38,7 @@ public class GetAllPlayersTest extends BaseTest {
     @Test(description = "Get all players request with invalid request method")
     @Severity(SeverityLevel.NORMAL)
     public void getAllPlayersWithInvalidRequestMethodTest() {
-        Response response = playerClient.sendPostAllPlayersRequest();
+        Response response = playerClient.sendGetAllPlayersPostRequest();
         assertEquals(response.getStatusCode(), HttpStatus.SC_METHOD_NOT_ALLOWED, "Unexpected status code");
         ErrorResponseDto errorResponseDto = response.as(ErrorResponseDto.class);
         SoftAssert softAssert = new SoftAssert();
