@@ -1,0 +1,5 @@
+remote-swagger:
+  endpoints:
+    player:
+      get-player-by-id-endpoint: "http://3.68.165.45/player/get"
+      get-all-players-endpoint: "http://3.68.165.45/player/get/all"
