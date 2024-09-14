@@ -28,7 +28,7 @@ import static org.testng.Assert.assertFalse;
 @Feature("Get all players")
 public class GetAllPlayersTest extends BaseTest {
 
-    protected PlayerClient playerClient;
+    private PlayerClient playerClient;
 
     @BeforeClass
     public void setUpClient() {

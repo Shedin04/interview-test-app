@@ -5,6 +5,8 @@ import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+import java.util.Map;
+
 import static io.restassured.RestAssured.given;
 
 public class BaseApiClient {
@@ -12,6 +14,19 @@ public class BaseApiClient {
     public Response getRequest(String url) {
         return given()
                 .filters(new HeadersFilter(), new AllureRestAssured())
+                .when()
+                .log().method()
+                .log().uri()
+                .log().headers()
+                .get(url)
+                .then()
+                .extract().response();
+    }
+
+    public Response getRequest(String url, Map<String, ?> params) {
+        return given()
+                .filters(new HeadersFilter(), new AllureRestAssured())
+                .params(params)
                 .when()
                 .log().method()
                 .log().uri()
