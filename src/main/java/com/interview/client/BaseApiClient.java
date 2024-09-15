@@ -76,4 +76,18 @@ public class BaseApiClient {
                 .then()
                 .extract().response();
     }
+
+    public Response patchRequest(String url, Object body) {
+        return given()
+                .filters(new HeadersFilter(), new AllureRestAssured())
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .log().method()
+                .log().body(true)
+                .log().headers()
+                .patch(url)
+                .then()
+                .extract().response();
+    }
 }

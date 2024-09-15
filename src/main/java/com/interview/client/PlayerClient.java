@@ -25,6 +25,7 @@ public class PlayerClient extends BaseApiClient {
     private static final String ENDPOINTS_PLAYER_DELETE_PLAYER_ENDPOINT = "endpoints.player.delete-player-endpoint";
     private static final String ENDPOINTS_PLAYER_SPECIFIED_PLAYER_ENDPOINT = "endpoints.player.get-specified-player-endpoint";
     private static final String ENDPOINTS_PLAYER_GET_ALL_PLAYERS_ENDPOINT = "endpoints.player.get-all-players-endpoint";
+    private static final String ENDPOINTS_PLAYER_UPDATE_PLAYER_ENDPOINT = "endpoints.player.update-player-endpoint";
 
     public Response sendCreatePlayerGetRequest(String editor, PlayerDto playerDto) {
         Map<String, Object> params = new HashMap<>();
@@ -77,6 +78,12 @@ public class PlayerClient extends BaseApiClient {
 
     public Response sendGetSpecifiedPlayerDeleteRequest(GetPlayerRequestDto getPlayerRequestDto) {
         Response response = deleteRequest(ConfigurationCollector.getProperty(ENDPOINTS_PLAYER_SPECIFIED_PLAYER_ENDPOINT), getPlayerRequestDto);
+        TestContext.saveSharedParameter(RESPONSE, response);
+        return response;
+    }
+
+    public Response sendUpdatePlayerPatchRequest(String editor, Long playerId, PlayerDto playerDto) {
+        Response response = patchRequest(format(ConfigurationCollector.getProperty(ENDPOINTS_PLAYER_UPDATE_PLAYER_ENDPOINT), editor, playerId), playerDto);
         TestContext.saveSharedParameter(RESPONSE, response);
         return response;
     }
