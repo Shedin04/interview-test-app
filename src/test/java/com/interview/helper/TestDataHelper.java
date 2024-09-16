@@ -21,13 +21,13 @@ import static com.interview.constants.StringConstants.SCREEN_NAME;
 public class TestDataHelper {
 
     private static final String[] GENDERS = {"male", "female"};
-    private static final String[] ROLES = {"admin", "user"};
+    private static final String[] ROLES = {"admin", "supervisor"};
     public static final String USERS_KEY = "users";
 
     public static PlayerDto createRandomPlayerDto() {
         return PlayerDto.builder()
                 .screenName(generateRandomString(10))
-                .age(generateRandomIntForRange(18, 99))
+                .age(generateRandomIntForRange(18, 60))
                 .gender(getRandomValueOfArray(GENDERS))
                 .login(generateRandomString(8))
                 .password(generateRandomString(12))
