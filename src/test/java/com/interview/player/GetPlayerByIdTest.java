@@ -23,6 +23,7 @@ import org.testng.asserts.SoftAssert;
 import static com.interview.constants.StringConstants.METHOD_NOT_ALLOWED_ERROR;
 import static com.interview.constants.StringConstants.PATH;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 
 @Epic("Player")
 @Feature("Get player by id")
@@ -75,6 +76,7 @@ public class GetPlayerByIdTest extends BaseTest {
         PlayerDto playerToGet = TestDataHelper.createPlayerDtoByUserType(UserType.DEFAULT_ADMIN_USER);
         Response response = playerClient.sendGetSpecifiedPlayerPostRequest(GetPlayerRequestDto.builder().playerId(playerToGet.getId()).build());
         assertEquals(response.getStatusCode(), HttpStatus.SC_OK, "Unexpected status code");
+        assertFalse(response.getBody().asString().isEmpty(), "Body should not be empty");
         PlayerDto receivedPlayer = response.as(PlayerDto.class);
         assertEquals(receivedPlayer, playerToGet, "Incorrect player was returned");
     }

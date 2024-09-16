@@ -45,7 +45,7 @@ public class CreatePlayerTest extends BaseTest {
 
     @Test(description = "Valid player creating")
     @Severity(SeverityLevel.CRITICAL)
-    @Issue("Incorrect response when create user. Null fields")
+    @Issue("Incorrect response when create user. There are null fields")
     public void createPlayerWithValidDataTest() {
         final String editor = TestDataHelper.createPlayerDtoByUserType(UserType.DEFAULT_SUPERVISOR_USER).getLogin();
         final PlayerDto playerToCreateDto = TestDataHelper.createRandomPlayerDto();

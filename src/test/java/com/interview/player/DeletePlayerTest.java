@@ -43,7 +43,7 @@ public class DeletePlayerTest extends BaseTest {
 
     @Test(description = "Delete player with invalid editor")
     @Severity(SeverityLevel.CRITICAL)
-    @Issue("Success deletion with invalid editor")
+    @Issue("There is success deletion, even with invalid editor")
     public void deletePlayerWithInvalidEditorTest() {
         String editor = RandomStringUtils.randomAlphabetic(15);
         Response response = playerClient.sendDeleteUserRequest(editor,
