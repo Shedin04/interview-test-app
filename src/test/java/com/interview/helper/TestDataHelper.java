@@ -27,7 +27,7 @@ public class TestDataHelper {
     public static PlayerDto createRandomPlayerDto() {
         return PlayerDto.builder()
                 .screenName(generateRandomString(10))
-                .age(generateRandomIntForRange(18, 99))
+                .age(generateRandomIntForRange(18, 60))
                 .gender(getRandomValueOfArray(GENDERS))
                 .login(generateRandomString(8))
                 .password(generateRandomString(12))

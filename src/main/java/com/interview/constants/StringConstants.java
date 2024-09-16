@@ -16,4 +16,5 @@ public final class StringConstants {
     public static final String PASSWORD = "password";
     public static final String ROLE = "role";
     public static final String SCREEN_NAME = "screenName";
+    public static final String PLAYER_ID = "PLAYER_ID";
 }

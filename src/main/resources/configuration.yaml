@@ -6,22 +6,21 @@ remote-swagger:
       get-specified-player-endpoint: "http://3.68.165.45/player/get"
       get-all-players-endpoint: "http://3.68.165.45/player/get/all"
       update-player-endpoint: "http://3.68.165.45/player/update/%s/%s"
-  #ToDo: to replace with valid users data once fixed
   users:
     default-supervisor-user:
-      id: 1805062526
-      login: pFbCmrrHwK
-      password: OwjombS0K2TfMu8 #I'd hide it using env variables
-      screenName: MIoLQKnBBY
+      id: 1
+      login: supervisor
+      #password can be set using any other options, e.g. in local.properties
+      screenName: testSupervisor
       gender: male
-      age: 51
-      role: user
+      age: 28
+      role: supervisor
 
     default-admin-user:
-      id: 1703653855
-      login: BOHbVzIYZY
-      password: C7wLbqXmLFJHZa5 #I'd hide it using env variables
-      screenName: tMcRUmMBTL
+      id: 2
+      login: admin
+      #password can be set using any other options, e.g. in local.properties
+      screenName: testAdmin
       gender: female
-      age: 20
+      age: 28
       role: admin
