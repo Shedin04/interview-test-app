@@ -9,6 +9,7 @@ import com.interview.helper.TestDataHelper;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
+import io.qameta.allure.Issue;
 import io.qameta.allure.SeverityLevel;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -44,6 +45,7 @@ public class CreatePlayerTest extends BaseTest {
 
     @Test(description = "Valid player creating")
     @Severity(SeverityLevel.CRITICAL)
+    @Issue("Incorrect response when create user. Null fields")
     public void createPlayerWithValidDataTest() {
         final String editor = TestDataHelper.createPlayerDtoByUserType(UserType.DEFAULT_SUPERVISOR_USER).getLogin();
         final PlayerDto playerToCreateDto = TestDataHelper.createRandomPlayerDto();

@@ -21,7 +21,7 @@ import static com.interview.constants.StringConstants.SCREEN_NAME;
 public class TestDataHelper {
 
     private static final String[] GENDERS = {"male", "female"};
-    private static final String[] ROLES = {"admin", "supervisor"};
+    private static final String[] ROLES = {"admin", "user"};
     public static final String USERS_KEY = "users";
 
     public static PlayerDto createRandomPlayerDto() {
